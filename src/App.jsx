@@ -1,37 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from './assets/vite.svg';
+import heroImg from './assets/hero.png';
+import './App.css';
+import BasicCalculator from './components/basic_calculator';
+import Home from './components/home';
+import CompleteCalculator from './components/calculator';
 
 function App() {
-  const [numberOne, setNumberOne] = useState(0);
-  const [numberTwo, setNumberTwo] = useState(0);
+  const [currentPage, setCurrentPage] = useState('home');
 
-  function sum() {
-    const sum = numberOne + numberTwo;
-    window.alert('The sum is: ' + sum);
+  function ChangePage() {
+    switch (currentPage) {
+      case 'home':
+        return <Home goPage={goPage} />;
+      case 'basicCalculator':
+        return <BasicCalculator goReturn={goPage} />;
+      case 'completeCalculator':
+        return <CompleteCalculator goReturn={goPage} />;
+      default:
+        return <Home goPage={goPage} />;
+    }
+  }
+  function goPage(value) {
+    setCurrentPage(value);
   }
 
   return (
-    <>
-      <form>
-        <h1>Calculator for Two Number</h1>
-        <br />
-        <br />
-        <h2>Number 1</h2>
-        <input type="number" onChange={(e) => setNumberOne(Number(e.target.value))} />
-        <br />
-        <br />
-        <h2>Number 2</h2>
-        <input type="number" onChange={(e) => setNumberTwo(Number(e.target.value))} />
-        <br />
-        <br />
-        <button type="submit" onClick={sum}>Sum</button>
-        <br />
-      </form>
-    </>
+    <div>
+      {ChangePage()}
+    </div>
   )
 }
 
-export default App
+export default App;
